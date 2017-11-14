@@ -23,13 +23,13 @@ The middleware handles bookkeeping of connections to the various open sockets, a
 - retrying the connection when lost, and exponentially backing off
 - batching writes when offline, and sending when available
 
-Data coming back from the socket will dispatch an action of `"@@redux-websocket/DATA_RECEIVED"` by default. You can listen for this action type in your reducers by importing `ActionTypes`:
+Data coming back from the socket will dispatch an action of `"@@redux-websocket/RECEIVED_WEBSOCKET_DATA"` by default. You can listen for this action type in your reducers by importing `ActionTypes`:
 
 ```js
 import { ActionTypes } from "redux-websocket-middleware"
 
 function reducer (state, action) {
-  if (action.type === ActionTypes.DATA_RECEIVED) {
+  if (action.type === ActionTypes.RECEIVED_WEBSOCKET_DATA) {
     // ...
   }
 }
@@ -41,7 +41,7 @@ The standard redux song-and-dance:
 
 ```js
 import { applyMiddleware, createStore }
-import { createSocketMiddleware } from "redux-websocket-middleware"
+import { createWebsocketMiddleware } from "redux-websocket-middleware"
 import reducer from "./reducer"
 
 const socketMiddleware = createWebsocketMiddleware()
@@ -58,7 +58,7 @@ If your app only needs to communicate with one socket connection, you can pass a
 ```js
 import { createWebsocketMiddleware } from "redux-websocket-middleware"
 
-const socketMiddleware = createSocketMiddleware({
+const socketMiddleware = createWebsocketMiddleware({
   defaultEndpoint: "ws://echo.websocket.org"
 })
 ```
